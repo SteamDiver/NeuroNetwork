@@ -1,6 +1,4 @@
-import sun.plugin.javascript.navig4.Layer;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +9,10 @@ import java.util.Random;
  */
 
 
-public class NeuroLayer {
+class NeuroLayer {
 
     // Число входов в слое
-    int COUNTX;
+    private int COUNTX;
 
 
     //Число нейронов в слое
@@ -32,7 +30,7 @@ public class NeuroLayer {
 
 
     // Конструктор с параметрами. передается количество нейронов, количество входов, входные данные
-    public NeuroLayer(int neurons, int countX, String Layer, double[] input) throws IOException {
+    NeuroLayer(int neurons, int countX, String Layer, double[] input) throws IOException {
         OUTPUT = new double[neurons];
         COUNTX = countX;
         GenerateNeurons(neurons);
@@ -64,26 +62,12 @@ public class NeuroLayer {
     }
 
 
-    public void SaveLayer() throws IOException {
-        for (int i = 0; i < NeuronList.size(); i++) {
+    void SaveLayer() throws IOException {
+        for (Neuron aNeuronList : NeuronList) {
 
-            NeuronList.get(i).SaveNeuron();
+            aNeuronList.SaveNeuron();
         }
     }
-    /*public void LoadLayer() throws IOException {
-        for (int i = 0; i < NeuronList.size(); i++) {
 
-            NeuronList.get(i).LoadNeuron();
-        }
-    }*/
-
-
-
-    /*public static void main(String[] args) {
-        double[] input = new double[]{1,1};
-        new NeuroLayer(2,2,input);
-
-        System.out.println(OUTPUT[0]);
-    }*/
 
 }

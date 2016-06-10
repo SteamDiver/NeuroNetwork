@@ -6,7 +6,7 @@ import java.util.List;
 
 public class NeuralNW {
 
-    double[] NWInput = new double[2];
+    private double[] NWInput = new double[2];
     static int nNumber;
     List<NeuroLayer> Layers = new ArrayList<>();
     static List<Double> data = new ArrayList<>();
@@ -19,12 +19,8 @@ public class NeuralNW {
         testnw.NWInput = testnw.Normalize(new double[]{1, 1});
 
         testnw.RunNetwork(testnw.NWInput);
-        testnw.Teach();
+        teacher.Teach(testnw);
 
-        /*for (double out : testnw.Layers.get(2).OUTPUT) {
-            System.out.println(out);
-
-        }*/
         System.out.println(OUTDATA);
 
     }
@@ -52,7 +48,7 @@ public class NeuralNW {
         reader.close();
     }
 
-    private void SaveNW() throws IOException {
+    void SaveNW() throws IOException {
         new File("neurons.txt").delete();
 
 
@@ -73,40 +69,6 @@ public class NeuralNW {
 
     }
 
-    private void Teach() throws IOException {
-
-        /*double[] teach = new double[4];
-
-        BufferedReader readerteach = new BufferedReader(new FileReader("learn.txt"));
-        BufferedReader readerteachout = new BufferedReader(new FileReader("learn-out.txt"));
-
-        String[] text = readerteach.readLine().split("\\s+");
-        for (int i = 0; i < text.length; i++) {
-            teach[i] = Double.valueOf(text[i]);
-            //System.out.print(teach[i]);
-        }*/
-        //T = Double.parseDouble(readerteachout.readLine());
-        //T=4;
-        //System.out.println(T);
-        //NWInput = teach;
-        /*for (Neuron neuron : Layers.get(Layers.size()-1).NeuronList) {
-            neuron.CorrectWeightsC(T);
-        }*/
-
-        for (int i = 0; i < Layers.size() - 1; i++) {
-            for (Neuron neuron : Layers.get(i).NeuronList) {
-                neuron.CorrectWeightsB();
-            }
-        }
-
-        for (Neuron neuron : Layers.get(Layers.size() - 1).NeuronList) {
-            neuron.CorrectWeightsC(T);
-        }
-        //readerteach.close();
-        //readerteachout.close();
-        SaveNW();
-
-    }
 
 
 }

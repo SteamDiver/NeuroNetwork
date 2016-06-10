@@ -6,9 +6,9 @@ import java.util.Random;
 
 
 public class Neuron {
-    List<Double> Weights = new ArrayList<>();
+    private List<Double> Weights = new ArrayList<>();
     // Количество входов
-    int In;
+    private int In;
     static double[] Input;
 
     // Выходной сигнал
@@ -16,7 +16,7 @@ public class Neuron {
     double OutSignal;
 
 
-    public Neuron(int inCount) {
+    Neuron(int inCount) {
         In = inCount;
         Input = new double[In];
 
@@ -52,7 +52,7 @@ public class Neuron {
 
     }
 
-    public void CorrectWeightsC(double T) {
+    void CorrectWeightsC(double T) {
 
         for (int i = 0; i < In; i++) {
             Weights.set(i, Weights.get(i) -(NeuralNW.OUTDATA - T)*Input[i]);
@@ -62,26 +62,25 @@ public class Neuron {
 
     }
 
-    public void CorrectWeightsB() {
+    void CorrectWeightsB() {
 
         for (int i = 0; i < In; i++) {
-            //Weights.set(i, Weights.get(i) + 1 / (1 + Math.exp(-Input[i])) * (1 - 1 / (1 + Math.exp(-Input[i]))));
             Weights.set(i, Weights.get(i) + 1 / (1 + Math.exp(-Input[i])) * (1 - 1 / (1 + Math.exp(-Input[i]))));
 
         }
     }
 
 
-    public void SaveNeuron() throws IOException {
+    void SaveNeuron() throws IOException {
         FileWriter writer = new FileWriter("neurons.txt", true);
-        for (int i = 0; i < Weights.size(); i++) {
+        for (Double Weight : Weights) {
 
-            writer.write(String.valueOf(Weights.get(i)) + "\n");
+            writer.write(String.valueOf(Weight) + "\n");
         }
         writer.close();
     }
 
-    public void LoadNeuron() throws IOException {
+    void LoadNeuron() throws IOException {
 
         //BufferedReader reader = new BufferedReader(new FileReader("neurons.txt"));
 
@@ -93,7 +92,7 @@ public class Neuron {
 
     }
 
-    public double Summator() {
+    double Summator() {
         double[] inp = Input;
         double sumsignal = 0;
         for (int i = 0; i < In; i++) {
@@ -105,10 +104,9 @@ public class Neuron {
 
     }
 
-    public void Result() {
+    void Result() {
 
         OutSignal = 1 / (1 + Math.exp(-Summator()));
-        //OutSignal=Math.tanh(Summator());
 
     }
 
