@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- *
- */
 
 
 class NeuroLayer {
@@ -39,17 +36,17 @@ class NeuroLayer {
             switch (Layer) {
                 case "First":
 
-                    NeuronList.get(i).Input[0] = input[i];
+                    Neuron.Input[0] = input[i];
                     NeuronList.get(i).OutSignal = NeuronList.get(i).Summator();
                     OUTPUT[i] = NeuronList.get(i).OutSignal;
                     break;
                 case "Hidden":
-                    NeuronList.get(i).Input = input;
+                    Neuron.Input = input;
                     NeuronList.get(i).Result();
                     OUTPUT[i] = NeuronList.get(i).OutSignal;
                     break;
                 case "Out":
-                    NeuronList.get(i).Input = input;
+                    Neuron.Input = input;
                     NeuronList.get(i).OutSignal = NeuronList.get(i).Summator();
                     OUTPUT[i] = NeuronList.get(i).OutSignal;
                     break;

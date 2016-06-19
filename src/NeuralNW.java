@@ -11,15 +11,16 @@ public class NeuralNW {
     List<NeuroLayer> Layers = new ArrayList<>();
     static List<Double> data = new ArrayList<>();
     static double OUTDATA;
-    double T = 2;
+    double T = 20;
 
     public static void main(String[] args) throws IOException {
 
         NeuralNW testnw = new NeuralNW();
-        testnw.NWInput = testnw.Normalize(new double[]{1, 1});
+        testnw.NWInput = testnw.Normalize(new double[]{1, 2});
 
         testnw.RunNetwork(testnw.NWInput);
         teacher.Teach(testnw);
+        testnw.GetOutData();
 
         System.out.println(OUTDATA);
 
@@ -29,11 +30,13 @@ public class NeuralNW {
 
         //создаем  слои
         LoadNW();
-        Layers.add(new NeuroLayer(2, 2, "First", inputdata));
-        Layers.add(new NeuroLayer(3, 6, "Hidden", Layers.get(0).OUTPUT));
-        Layers.add(new NeuroLayer(1, 3, "Out", Layers.get(1).OUTPUT));
+        Layers.add(new NeuroLayer(1, 1, "First", inputdata));
+        Layers.add(new NeuroLayer(1, 1, "Hidden", Layers.get(0).OUTPUT));
+        Layers.add(new NeuroLayer(1, 1, "Out", Layers.get(1).OUTPUT));
+
+    }
+    private void GetOutData(){
         OUTDATA = Layers.get(2).OUTPUT[0];
-        SaveNW();
     }
 
 

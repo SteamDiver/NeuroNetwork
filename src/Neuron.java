@@ -7,13 +7,12 @@ import java.util.Random;
 
 public class Neuron {
     private List<Double> Weights = new ArrayList<>();
-    // Количество входов
-    private int In;
-    static double[] Input;
 
-    // Выходной сигнал
+    private int In;     // Количество входов
+    static double[] Input;// Вход
+    double OutSignal;   // Выходной сигнал
 
-    double OutSignal;
+    double delta;
 
 
     Neuron(int inCount) {
@@ -21,28 +20,13 @@ public class Neuron {
         Input = new double[In];
 
     }
-
-
-    /* Тест для одного нейрона
-    public static void main(String[] args) {
-        Neuron n1 = new Neuron(1);
-        n1.setWeights(0,0.5);
-
-        double[] input = new double[1];
-        input[0]=40;
-
-        n1.Input=input;
-        n1.Result();
-        System.out.println(n1.OutSignal);
-
-
-
-    }*/
     // Заполняем веса случайными числами
     public void GenerateRandomWeights() {
         for (int i = 0; i < In; i++) {
             Weights.add(i, new Random().nextDouble());
         }
+    }
+    void setDelta(){
     }
 
     public void setWeights(double newWeight) {
@@ -55,8 +39,8 @@ public class Neuron {
     void CorrectWeightsC(double T) {
 
         for (int i = 0; i < In; i++) {
-            Weights.set(i, Weights.get(i) -(NeuralNW.OUTDATA - T)*Input[i]);
-            //Weights.set(i,Weights.get(i) + 1 / (1 + Math.exp(-Input[i])) * (1 - 1 / (1 + Math.exp(-Input[i])))*(1 / (1 + Math.exp(-Input[i]))-T));
+            //Weights.set(i, Weights.get(i) -(NeuralNW.OUTDATA - T)*Input[i]);
+            Weights.set(i,Weights.get(i) + 1 / (1 + Math.exp(-Input[i])) * (1 - 1 / (1 + Math.exp(-Input[i])))*(1 / (1 + Math.exp(-Input[i]))-T));
         }
 
 
@@ -81,8 +65,6 @@ public class Neuron {
     }
 
     void LoadNeuron() throws IOException {
-
-        //BufferedReader reader = new BufferedReader(new FileReader("neurons.txt"));
 
         for (int i = 0; i < In; i++, NeuralNW.nNumber++) {
             Weights.add(i, NeuralNW.data.get(NeuralNW.nNumber));
